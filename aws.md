@@ -26,8 +26,11 @@ Default output format [None]: # 비워도 됩니다.
 ## AWS Region 설정하기
 `~/.aws`에서 config 파일에서 region을 관리하세요.
 
-
 ## AWS 사용 방법
 
 `aws ec2 help`
 `aws s3 ls`
+
+## 주의사항
+
+Secret key는 절대 공개하지 마세요.
