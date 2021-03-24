@@ -4,11 +4,11 @@
 요즘 DP팀 메인 이슈는 Jenkins를 Batch Job을 관리하는 Tool인 Airflow로 옮기는
 작업입니다.
 
-## 1. [Airflow](http://airflow.apache.org/)
+# 1. [Airflow](http://airflow.apache.org/)
 
 2021-03-23 기준 Airflow Version은 2.0.1입니다.
 
-### 1.1 Airflow만의 강점
+## 1.1 Airflow만의 강점
 
 1. Scalable:
   * 모듈식 아키텍쳐(Modular Architecture)
@@ -18,20 +18,20 @@
 2. Dynamic: 동적 파이프라인 생성이 가능하다.
 3. Extensible: 사용자 환경에 맞는 추상화 수준에 맞게 라이브러리를 확장할 수 있다.
 
-### 1.2 Features
+## 1.2 Features
 
 * Python 사용함
 * 타사 서비스(GCP, AWS, MA)에 쉽게 적용이 됨
 * UI 괜찮아서 사용하기 괜찮은거 같음
 * Open source
 
-### 1.3 Concepts
+## 1.3 Concepts
 
 Workflow를 describe, execute, monitor 하는 플랫폼.
 
 ![Image of Airflow Architecture](https://airflow.apache.org/docs/apache-airflow/stable/_images/arch-diag-basic.png)
 
-#### Glossary 
+### Glossary 
 
 * Webserver, Scheduler, Worker
   - Webserver, Scheduler: 로컬 컴퓨터와 DB 간의 상호작용을하거나 웹서버와 스케쥴러가 각각의 프로세스를 실행하기도 한다.
@@ -72,7 +72,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
 * workflow
   - DAGs와 Operators를 결합 -> TaskInstances를 생성 -> 복잡한 workflow 빌드
 
-### 1.4 Core Ideas: DAGs
+## 1.4 Core Ideas: DAGs
 
 1. Global로 정의해야 한다. local에서 정의한 것은 local에서만 보임. Scope 조심하자!
 2. Default Argument가 있기 때문에 common parameter를 여러 번 입력할 필요 없이 쉽게 적용할 수 있다.
@@ -80,7 +80,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
 4. Authoring DAG의 새로운 스타일로 TaskFlow API를 사용할 수도 있다.
 5. context manager를 사용해서 DAG를 생성하면 `@` decorator를 사용해서 DAG를 생성하는 함수를 만들 수도 있음
 
-### 1.5 DAG Runs
+## 1.5 DAG Runs
 
 * 특정 `execution_date`(DAG run과 해당 태스크 인스턴스가 실행하는 논리적 날짜, 시간)에 대해 실행되는 태스크 인스턴스를 포함하는 DAG를 인스턴스화 한 것.
   * `execution_date`로 태스크 인스턴스는 원하는 논리 날짜 및 시간에 대한 데이터를 처리
@@ -89,7 +89,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
 * DAG 실행과 해당 실행 내에 생성된 모든 태스크 인스턴스가 동일한 execution_date로 인스턴스화되므로 논리적으로 DAG 실행이 모든 태스크를 실행 중인 이전 날짜 및 시간에 시뮬레이션하는 것으로 생각할 수 있음.
   * DAG : DAG Run = 1 : N 일 수도 있다. 
 
-### 1.6 Tasks
+## 1.6 Tasks
 
 * DAG에서 node에 해당되고 work 집합을 의미한다.
 * 각각의 task는 Operator를 구현한다.
@@ -121,7 +121,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
 * current context는 작업 실행 중에만 접근할 수 있다.
   * `pre_execute` 또는 `post_execute` 중에는 접근 불가능함.
 
-### 1.7 Task Instances
+## 1.7 Task Instances
 
 1.7.1 특징
 
@@ -135,7 +135,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
 
 task_1은 task_2의 upstream이지만 `execution_date`는 서로 같음.
 
-### 1.8 Task Lifecycle
+## 1.8 Task Lifecycle
 
 Task는 start부터 completion까지 다양한 스테이지를 나타냄.
 Airflow UI에서 각 스테이지는 각기 다른 색깔로 보여짐.
@@ -148,7 +148,7 @@ Airflow UI에서 각 스테이지는 각기 다른 색깔로 보여짐.
 4. Running (워커가 태스크를 선택하고 태스크가 돌아가는 상태)
 5. Success (태스크가 완료된 상태)
 
-### 1.9 [Operators](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#operators)
+## 1.9 [Operators](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#operators)
 
 문서 참고할 것
 
@@ -160,14 +160,14 @@ Airflow UI에서 각 스테이지는 각기 다른 색깔로 보여짐.
 
 1.9.4 Relationship Builders
 
-### 1.10 Best Practices
+## 1.10 Best Practices
 
     DAG 생성
 
     * DAG 객체를 생성하는 파이썬 코드 작성하기
     * Expectation을 만족하는지 코드 테스트하기
 
-#### 1.10.1 Writing a DAG
+### 1.10.1 Writing a DAG
 
 1.10.1.1 태스크 생성하기
 
@@ -208,7 +208,7 @@ Airflow UI에서 각 스테이지는 각기 다른 색깔로 보여짐.
 
 1.10.1.4 변수
 
-#### 1.10.2 Testing a DAG
+### 1.10.2 Testing a DAG
 
 1.10.2.1 DAG Loader Test
 
@@ -220,5 +220,5 @@ Airflow UI에서 각 스테이지는 각기 다른 색깔로 보여짐.
 
 1.10.2.4 Staging Environment
 
-#### 1.10.3 Mocking variables and connections
+### 1.10.3 Mocking variables and connections
 
