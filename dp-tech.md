@@ -94,7 +94,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
 * DAG에서 node에 해당되고 work 집합을 의미한다.
 * 각각의 task는 Operator를 구현한다.
 
-1.6.1 Tasks간의 관계
+#### 1.6.1 Tasks간의 관계
 
 * DAG에서 각 task는 노드다. 단 task_1 -> task_2 로의 종속성 존재.
   * `task_1 >> task_2` # Define dependencies
@@ -102,7 +102,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
   * task_2는 task_1의 downstream
   * task_2는 task_1이 성공적으로 완료될 때까지 기다렸다가 시작한다.
 
-1.6.2 `@task` : Python task decorator
+#### 1.6.2 `@task` : Python task decorator
 
 * `@task`는 모든 python 함수를 airflow 연산자로 변환
 * decorated function을 호출해서 연산자를 실행에 필요한 arguments, key arguments를
@@ -114,7 +114,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
     * task__n 이전에 새 태스크를 삽입하면 이후 task_id는 하나씩 뒤로 밀림.
     * 시간이 지남에 따라 변경된 DAG 기록 로그나 DAG Runs에 혼동이 생김. 
 
-1.6.3 current context로 접근하기
+#### 1.6.3 current context로 접근하기
 
 * current execution context를 검색하려면 `get_current_context` 메서드를 사용.
 * `@task` decorator 사용시 유용하다.
@@ -123,7 +123,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
 
 ## 1.7 Task Instances
 
-1.7.1 특징
+#### 1.7.1 특징
 
 * 태스크의 특정 실행을 나타냄. DAG 실행에 속함.
   * 태스크는 DAG에서 정의됨.
@@ -131,7 +131,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
 * DAG, 태스크 및 지정 시점(`execution_date`)의 조합
 * 표시 상태: "running", "success", "failed", "skipped", "up for retry"
 
-1.7.2 Task Instances 간의 관계
+#### 1.7.2 Task Instances 간의 관계
 
 task_1은 task_2의 upstream이지만 `execution_date`는 서로 같음.
 
@@ -152,13 +152,13 @@ Airflow UI에서 각 스테이지는 각기 다른 색깔로 보여짐.
 
 문서 참고할 것
 
-1.9.1 Sensors
+#### 1.9.1 Sensors
 
-1.9.2 DAG Assignment
+#### 1.9.2 DAG Assignment
 
-1.9.3 Bitshift Composition
+#### 1.9.3 Bitshift Composition
 
-1.9.4 Relationship Builders
+#### 1.9.4 Relationship Builders
 
 ## 1.10 Best Practices
 
@@ -169,7 +169,7 @@ Airflow UI에서 각 스테이지는 각기 다른 색깔로 보여짐.
 
 ### 1.10.1 Writing a DAG
 
-1.10.1.1 태스크 생성하기
+#### 1.10.1.1 태스크 생성하기
 
 * Airflow에서 태스크 다루는 일은 DB 트랜잭션과 비슷하다고 생각하면 된다.
 * Task에 불완전한 결과를 생성하면 안된다.
@@ -184,13 +184,13 @@ Airflow UI에서 각 스테이지는 각기 다른 색깔로 보여짐.
     -> 특정 파티션의 입력 데이터를 읽는 것이 좋음.
   * `execution_date`를 특정 파티션으로 사용할 수 있다.
 
-1.10.1.2 태스크 삭제하기
+#### 1.10.1.2 태스크 삭제하기
 
 * DAG의 태스크 절대로 삭제하지 말 것.
   * 삭제시 Airflow UI에서 historical 태스크 정보가 사라진다.
   * 삭제할 필요가 있더라도 DAG를 새로 만드는 것을 추천함.
 
-1.10.1.3 커뮤니케이션
+#### 1.10.1.3 커뮤니케이션
 
 * Airflow는 Kubernetes executor를 사용하는 경우, 다른 서버들에서 DAG 작업을 실행함
 * 따라서 설정 파일 등을 로컬 파일시스템에 저장해선 안됨.
@@ -206,7 +206,7 @@ Airflow UI에서 각 스테이지는 각기 다른 색깔로 보여짐.
   * 가능하면 `Connections`을 사용
   * Airflow 백엔드에 데이터를 안전하게 저장해서 고유한 connection ID를 사용하여 데이터를 검색하자.
 
-1.10.1.4 변수
+#### 1.10.1.4 변수
 
 * 변수는 Flow의 메타데이터 DB에 대한 연결을 만들어 값을 가져오므로 가능한 경우 연산자의 `execute()` 메서드 외부에 있는 변수나 Jinja 템플릿은 사용하지 않아야 한다. 사용하게 되면 구문 분석 속도가 느려지고 DB에 추가 로드가 발생할 수 있음.
 
@@ -221,7 +221,7 @@ Airflow는 구문 분석 중에 각 DAG에 대한 메타데이터 DB에 대한 �
 
 ### 1.10.2 Testing a DAG
 
-1.10.2.1 DAG Loader Test
+#### 1.10.2.1 DAG Loader Test
 
 * 기본 컨셉 : DAG에 로드할 때 오류가 발생하는 코드가 없는지 확인해야 함.
   * `python your-dag-file.py` 명령어 실행했을 때 아무 에러가 발생하지 않으면 DAG에 에러가 없다는 것을 확인할 수 있다.
@@ -236,16 +236,16 @@ Airflow는 구문 분석 중에 각 DAG에 대한 메타데이터 DB에 대한 �
         - 상태를 기록하기 위해서 DB와 커뮤니케이션 함.
         - 웹 서버가 설치되어 있다면 진행 상황을 추적할 수 있음.
 
-1.10.2.2 Unit Tests
+#### 1.10.2.2 Unit Tests
 
 custom operator 만들어서 유닛테스트 할 수도 있음.
 
-1.10.2.3 Self-Checks
+#### 1.10.2.3 Self-Checks
 
 DAG에서 검사를 구현하여 작업이 예상대로 결과를 생성하는지 확인할 수 있음.
 예를 들어 파티션이 S3에 생성되었는지 확인할 수 있음. 또는 데이터가 올바른지 확인할 수 있음.
 
-1.10.2.4 Staging Environment
+#### 1.10.2.4 Staging Environment
 
 * 가능한 프로덕션에서 배포하기 전에 전체 DAG run을 테스트하기 위한 준비 환경을 유지할 것. 
 * DAG가 S3 작업의 출력 경로 또는 구성을 읽는 데 사용되는 데이터베이스 등 변수를 변경하도록 매개 변수화되었는지 확인할 것. 
