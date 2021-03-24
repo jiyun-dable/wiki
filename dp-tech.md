@@ -29,8 +29,7 @@
 
 Workflow를 describe, execute, monitor 하는 플랫폼.
 
-![Image of Airflow Architecture]
-](https://airflow.apache.org/docs/apache-airflow/stable/_images/arch-diag-basic.png)
+![Image of Airflow Architecture](https://airflow.apache.org/docs/apache-airflow/stable/_images/arch-diag-basic.png)
 
 #### Glossary 
 
