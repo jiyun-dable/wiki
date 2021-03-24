@@ -86,7 +86,7 @@ Workflow를 describe, execute, monitor 하는 플랫폼.
   * `execution_date`로 태스크 인스턴스는 원하는 논리 날짜 및 시간에 대한 데이터를 처리
   * 주의사항: task_instance 또는 DAG 실행의 실제 시작 날짜가 현재일 수 있지만 논리 날짜는 3개월 전일 수 있음.
 
-* DAG 실행과 해당 실행 내에 생성된 모든 태스크 인스턴스가 동일한 execution_date로 인스턴스화되므로 논리적으로 DAG 실행이 모든 태스크를 실행 중인 이전 날짜 및 시간에 시뮬레이션하는 것으로 생각할 수 있습니다.
+* DAG 실행과 해당 실행 내에 생성된 모든 태스크 인스턴스가 동일한 execution_date로 인스턴스화되므로 논리적으로 DAG 실행이 모든 태스크를 실행 중인 이전 날짜 및 시간에 시뮬레이션하는 것으로 생각할 수 있음.
   * DAG : DAG Run = 1 : N 일 수도 있다. 
 
 ### 1.6 Tasks
@@ -153,16 +153,19 @@ Airflow UI에서 각 스테이지는 각기 다른 색깔로 보여짐.
 문서 참고할 것
 
 1.9.1 Sensors
+
 1.9.2 DAG Assignment
+
 1.9.3 Bitshift Composition
+
 1.9.4 Relationship Builders
 
 ### 1.10 Best Practices
 
-DAG 생성
+    DAG 생성
 
-* DAG 객체를 생성하는 파이썬 코드 작성하기 
-* Expectation을 만족하는지 코드 테스트하기
+    * DAG 객체를 생성하는 파이썬 코드 작성하기
+    * Expectation을 만족하는지 코드 테스트하기
 
 #### 1.10.1 Writing a DAG
 
@@ -173,12 +176,12 @@ DAG 생성
 * Task를 재실행할 때마다 동일한 결과를 도출해야 함.
   * Task re-run 동안 INSERT 사용 X. INSERT 문이 DB에 중복된 행으로 이어지기
       때문. 
-  * -> UPSERT 사용할 것
+  -> UPSERT 사용할 것
 * 특정 파티션에서 읽고 쓴다.
   * 절대로 Task에서 사용가능한 latest data를 읽지 말기. 
     * 재실행 사이에 다른 사람이 입력 데이터를 업데이트 해서 다른 결과가
         도출되기 때문. 
-    * -> 특정 파티션의 입력 데이터를 읽는 것이 좋음.
+    -> 특정 파티션의 입력 데이터를 읽는 것이 좋음.
   * `execution_date`를 특정 파티션으로 사용할 수 있다.
 
 1.10.1.2 태스크 삭제하기
