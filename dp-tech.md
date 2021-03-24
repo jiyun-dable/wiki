@@ -12,7 +12,7 @@
 
 1. Scalable:
   * 모듈식 아키텍쳐(Modular Architecture)
-  * 메시지 큐를 사용하여 임의의 사람수에도 작업자를 관리한다.
+  * 메시지 큐를 사용하여 임의 수의 작업자를 조정함.
     * (producer-consumer design pattern 참고)
   * 확장이 용이하다.
 2. Dynamic: 동적 파이프라인 생성이 가능하다.
@@ -208,6 +208,8 @@ DAG 생성
 #### 1.10.2 Testing a DAG
 
 1.10.2.1 DAG Loader Test
+
+
 
 1.10.2.2 Unit Tests
 
